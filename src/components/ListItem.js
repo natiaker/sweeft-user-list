@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const ListItem = ({ name, lastName, prefix, title, imageUrl }) => {
+const ListItem = ({ id, name, lastName, prefix, title, imageUrl }) => {
   return (
-    <div
+    <Link
+      to={`/user/${id}`}
       className='user-container'
       style={{ border: "2px solid red", width: "200px" }}
     >
@@ -17,7 +19,7 @@ const ListItem = ({ name, lastName, prefix, title, imageUrl }) => {
         </h1>
         <p>{title}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

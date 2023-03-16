@@ -7,7 +7,7 @@ const baseUrl = "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com";
 function App() {
   const [userList, setUserList] = useState(null);
   const [page, setPage] = useState(2);
-  const size = 100;
+  const size = 12;
   const [isLoading, setIsLoading] = useState(false);
   const [noData, setNoData] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -30,9 +30,9 @@ function App() {
       document.documentElement.offsetHeight
     ) {
       if (!noData) {
-        setIsLoading(true);
         try {
           axios.get(`${baseUrl}/user/${page}/${size}/`).then(response => {
+            setIsLoading(true);
             setIsError(false);
             const newPage = page + 1;
             setPage(newPage);
