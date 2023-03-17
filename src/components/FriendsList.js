@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import ListItem from "./components/ListItem";
-import UserService from "./services/UserService";
+import React, { useState, useEffect } from "react";
+import UserService from "../services/UserService";
+import ListItem from "./ListItem";
 
-function App() {
+const FriendsList = ({ userId }) => {
   const [userList, setUserList] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ function App() {
   function loadUserList(page) {
     setIsLoading(true);
     setTimeout(() => {
-      UserService.getList(page, `/user/${page}/${size}/`)
+      UserService.getList(page, `/user/${userId}/friends/${page}/${size}`)
         .then(res => {
           setPage(page + 1);
           setUserList([...userList, ...res]);
@@ -68,6 +68,6 @@ function App() {
       {noData && <h1>No more data</h1>}
     </div>
   );
-}
+};
 
-export default App;
+export default FriendsList;
