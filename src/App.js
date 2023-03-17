@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ListItem from "./components/ListItem";
-import UserService from "./services/UserService";
+import MyAPIService from "./services/MyAPIService";
 
 function App() {
   const [userList, setUserList] = useState([]);
@@ -27,7 +27,7 @@ function App() {
   function loadUserList(page) {
     setIsLoading(true);
     setTimeout(() => {
-      UserService.getList(page, `/user/${page}/${size}/`)
+      MyAPIService.getList(page, `/user/${page}/${size}/`)
         .then(res => {
           setPage(page + 1);
           setUserList([...userList, ...res]);

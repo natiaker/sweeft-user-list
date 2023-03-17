@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import UserService from "../services/UserService";
+import MyAPIService from "../services/MyAPIService";
 import ListItem from "./ListItem";
 
 const FriendsList = ({ userId }) => {
@@ -27,7 +27,7 @@ const FriendsList = ({ userId }) => {
   function loadUserList(page) {
     setIsLoading(true);
     setTimeout(() => {
-      UserService.getList(page, `/user/${userId}/friends/${page}/${size}`)
+      MyAPIService.getList(page, `/user/${userId}/friends/${page}/${size}`)
         .then(res => {
           setPage(page + 1);
           setUserList([...userList, ...res]);

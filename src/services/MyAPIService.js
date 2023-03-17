@@ -2,8 +2,8 @@ import axios from "axios";
 
 const baseUrl = "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com";
 
-export default {
-  getList: async function (page, endpoint) {
+class MyAPIService {
+  static async getList(page, endpoint) {
     try {
       console.log(endpoint);
       let url;
@@ -18,5 +18,6 @@ export default {
     } catch (error) {
       throw error;
     }
-  },
-};
+  }
+}
+export default MyAPIService;
