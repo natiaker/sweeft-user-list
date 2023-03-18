@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MyAPIService from "../services/MyAPIService";
+import { Container } from "../styles/Container.styled";
 import ListItem from "./ListItem";
+import Loading from "./Loading";
 
 const FriendsList = ({ userId }) => {
-  const [userList, setUserList] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [noData, setNoData] = useState(false);
@@ -15,22 +17,25 @@ const FriendsList = ({ userId }) => {
       document.documentElement.offsetHeight
     ) {
       if (!noData) {
-        loadUserList(page);
+        loadFriendsList(page);
       }
     }
   };
 
   useEffect(() => {
-    loadUserList(page);
+    loadFriendsList(page);
   }, []);
 
-  function loadUserList(page) {
+  function loadFriendsList(page) {
     setIsLoading(true);
     setTimeout(() => {
       MyAPIService.getList(page, `/user/${userId}/friends/${page}/${size}`)
         .then(res => {
+          console.log("linkn: ", `/user/${userId}/friends/${page}/${size}`);
+          console.log("friendslist: ", friendsList);
           setPage(page + 1);
-          setUserList([...userList, ...res]);
+          console.log("res ", res);
+          setFriendsList([...friendsList, ...res]);
           if (res.length === 0) setNoData(true);
         })
         .catch(error => {
@@ -42,31 +47,31 @@ const FriendsList = ({ userId }) => {
     }, 1500);
   }
 
-  if (!userList) return null;
+  if (!friendsList) return null;
 
   return (
-    <div
-      className='container'
-      style={{ width: "1000px" }}
-    >
-      <div className='users'>
-        <div
-          className='list'
-          style={{ display: "flex", flexWrap: "wrap" }}
-        >
-          {userList.map(listItem => {
-            return (
-              <ListItem
-                key={listItem.id}
-                {...listItem}
-              />
-            );
-          })}
-        </div>
+    <Container>
+      <div
+        className='list'
+        style={{ display: "flex", flexWrap: "wrap" }}
+      >
+        {friendsList.map(listItem => {
+          return (
+            <ListItem
+              key={listItem.id}
+              {...listItem}
+            />
+          );
+        })}
       </div>
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && (
+        <Loading
+          type={"bars"}
+          color={"blue"}
+        />
+      )}
       {noData && <h1>No more data</h1>}
-    </div>
+    </Container>
   );
 };
 

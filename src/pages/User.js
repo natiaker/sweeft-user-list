@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import FriendsList from "../components/FriendsList";
+import { Container } from "../styles/Container.styled";
+import { UserInfo } from "../styles/User.styled";
 
 const baseUrl = "http://sweeftdigital-intern.eu-central-1.elasticbeanstalk.com";
 
@@ -21,6 +23,7 @@ const User = () => {
   if (!user) return null;
 
   const {
+    id,
     name,
     lastName,
     prefix,
@@ -34,38 +37,38 @@ const User = () => {
     address,
   } = user;
   return (
-    <>
-      <div style={{ display: "flex" }}>
+    <Container>
+      <UserInfo>
         <img
-          src={imageUrl}
+          src={`${imageUrl}?v${userId}`}
           alt={`${name} ${lastName}`}
         />
-        <div style={{ display: "flex" }}>
-          <div className='info'>
-            <h3>
-              {prefix} {name} {lastName}
-            </h3>
-            <p>{title}</p>
-            <p>Email: {email}</p>
-            <p>Ip Address: {ip}</p>
-            <p>Job Area: {jobArea}</p>
-            <p>Job Type: {jobType}</p>
-          </div>
-          <div className='address'>
-            <h3>
-              {company.name} {company.suffix}
-            </h3>
-            <p>City: {address.city}</p>
-            <p>Country: {address.country}</p>
-            <p>State: {address.state}</p>
-            <p>Street Address: {address.streetAddress}</p>
-            <p>ZIP: {address.zipCode}</p>
-          </div>
+        <div className='info'>
+          <h2>Info</h2>
+          <h3>
+            {prefix} {name} {lastName}
+          </h3>
+          <p>{title}</p>
+          <p>Email: {email}</p>
+          <p>Ip Address: {ip}</p>
+          <p>Job Area: {jobArea}</p>
+          <p>Job Type: {jobType}</p>
         </div>
-      </div>
-      <h2>Friends:</h2>
+        <div className='address'>
+          <h2>Address</h2>
+          <h3>
+            {company.name} {company.suffix}
+          </h3>
+          <p>City: {address.city}</p>
+          <p>Country: {address.country}</p>
+          <p>State: {address.state}</p>
+          <p>Street Address: {address.streetAddress}</p>
+          <p>ZIP: {address.zipCode}</p>
+        </div>
+      </UserInfo>
+      <h2 style={{ alignSelf: "flex-start" }}>Friends:</h2>
       <FriendsList userId={userId} />
-    </>
+    </Container>
   );
 };
 

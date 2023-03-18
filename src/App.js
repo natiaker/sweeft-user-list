@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import ListItem from "./components/ListItem";
+import Loading from "./components/Loading";
 import MyAPIService from "./services/MyAPIService";
+import { Container } from "./styles/Container.styled";
 
 function App() {
   const [userList, setUserList] = useState([]);
@@ -45,28 +47,25 @@ function App() {
   if (!userList) return null;
 
   return (
-    <div
-      className='container'
-      style={{ width: "1000px" }}
-    >
-      <div className='users'>
-        <div
-          className='list'
-          style={{ display: "flex", flexWrap: "wrap" }}
-        >
-          {userList.map(listItem => {
-            return (
-              <ListItem
-                key={listItem.id}
-                {...listItem}
-              />
-            );
-          })}
-        </div>
+    <Container>
+      <div className='list'>
+        {userList.map(listItem => {
+          return (
+            <ListItem
+              key={listItem.id}
+              {...listItem}
+            />
+          );
+        })}
       </div>
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && (
+        <Loading
+          type={"bars"}
+          color={"blue"}
+        />
+      )}
       {noData && <h1>No more data</h1>}
-    </div>
+    </Container>
   );
 }
 
