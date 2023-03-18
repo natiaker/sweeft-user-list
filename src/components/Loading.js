@@ -1,6 +1,5 @@
 import React from "react";
 import ReactLoading from "react-loading";
-import styled from "styled-components";
 
 const Loading = ({ type, color }) => (
   <ReactLoading

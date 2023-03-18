@@ -23,7 +23,6 @@ const User = () => {
   if (!user) return null;
 
   const {
-    id,
     name,
     lastName,
     prefix,
