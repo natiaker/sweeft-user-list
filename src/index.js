@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { HashRouter, Routes, Route } from "react-router-dom";
+import { AppProvider } from "./context/context";
 
 // Pages
 import Layout from "./pages/Layout";
@@ -13,27 +14,29 @@ import ScrollToTop from "./pages/ScrollToTop";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <HashRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route
-          path='/'
-          element={<Layout />}
-        >
+    <AppProvider>
+      <HashRouter>
+        <ScrollToTop />
+        <Routes>
           <Route
-            index
-            element={<App />}
-          />
-          <Route
-            path='user/:userId'
-            element={<User />}
-          />
-          <Route
-            path='*'
-            element={<NoPage />}
-          />
-        </Route>
-      </Routes>
-    </HashRouter>
+            path='/'
+            element={<Layout />}
+          >
+            <Route
+              index
+              element={<App />}
+            />
+            <Route
+              path='user/:userId'
+              element={<User />}
+            />
+            <Route
+              path='*'
+              element={<NoPage />}
+            />
+          </Route>
+        </Routes>
+      </HashRouter>
+    </AppProvider>
   </React.StrictMode>
 );
