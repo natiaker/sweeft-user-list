@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/sweeft-user-list/static/css/main.e6c13ad2.css",
+    "main.js": "/sweeft-user-list/static/js/main.72de1a3e.js",
+    "index.html": "/sweeft-user-list/index.html",
+    "main.e6c13ad2.css.map": "/sweeft-user-list/static/css/main.e6c13ad2.css.map",
+    "main.72de1a3e.js.map": "/sweeft-user-list/static/js/main.72de1a3e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.72de1a3e.js"
+  ]
+}
