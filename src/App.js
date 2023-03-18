@@ -9,7 +9,7 @@ function App() {
   const [noData, setNoData] = useState(false);
   const size = 12;
 
-  window.onscroll = () => {
+  const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop ===
       document.documentElement.offsetHeight
@@ -19,6 +19,14 @@ function App() {
       }
     }
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     loadUserList(page);

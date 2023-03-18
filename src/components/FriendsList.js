@@ -21,21 +21,34 @@ const FriendsList = ({ userId }) => {
   };
 
   useEffect(() => {
-    loadFriendsList(page);
-  }, []);
-
-  useEffect(() => {
     setFriendsList([]);
+    loadNewFriendsList(page);
   }, [userId]);
+
+  function loadNewFriendsList(page) {
+    setIsLoading(true);
+    setTimeout(() => {
+      MyAPIService.getList(page, `/user/${userId}/friends/${page}/${size}`)
+        .then(res => {
+          setPage(page + 1);
+          setFriendsList([...res]);
+          if (res.length === 0) setNoData(true);
+        })
+        .catch(error => {
+          console.log("Error fetching data: ", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }, 1500);
+  }
 
   function loadFriendsList(page) {
     setIsLoading(true);
     setTimeout(() => {
       MyAPIService.getList(page, `/user/${userId}/friends/${page}/${size}`)
         .then(res => {
-          console.log("friendslist: ", friendsList);
           setPage(page + 1);
-          console.log("res ", res);
           setFriendsList([...friendsList, ...res]);
           if (res.length === 0) setNoData(true);
         })
